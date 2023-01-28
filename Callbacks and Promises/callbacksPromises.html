@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>callbacks</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="javascript-callbacks-why-fear">JavaScript Callbacks (why fear?)</h1>
+<p>Every JavaScript beginner will face this question at least once: <strong>"What is a callback function?"</strong><br>
+Well, we can find the answer in the word <strong>callback</strong> itself. It’s all about notifying the caller after the successful completion or failure of a task.</p>
+<h2 id="first-what-is-a-function"># First, what is a function?</h2>
+<p>A function in JavaScript is a set of statements that performs a task. This set of statements can exist without a function, but having them in a function helps us reuse the task in multiple places.</p>
+<p>Suppose there is an example of a function that doubles a value if the value is an even number. We pass a number as an argument to the function.</p>
+<pre class=" language-js"><code class="prism  language-js"><span class="token keyword">function</span> <span class="token function">doubleEven</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    	<span class="token keyword">return</span> n <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> n<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Now you can use this function in as many places as you need to:</p>
+<pre class=" language-js"><code class="prism  language-js"><span class="token function">doubleEven</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Output, 20</span>
+<span class="token function">doubleEven</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Output, 5</span>
+</code></pre>
+<p>But at any level of your journey to learn JS, you must be knowing that "<em><strong>You can pass a function as an argument to another function"</strong></em></p>
+<p><img src="https://i.ytimg.com/vi/TPEvfnXNO0E/maxresdefault.jpg" alt="Les fonctions &quot;Callback&quot; en JavaScript 📞 - YouTube"></p>
+<h1 id="callbacks"># Callbacks</h1>
+<p>A callback function is a function that is passed as an argument to another function, to be “called back” at a later time.</p>
+<p>But Why??</p>
+<ul>
+<li>
+<p>Callbacks make sure that a function is not going to run before a task is completed but will run right after the task has completed</p>
+</li>
+<li>
+<p>It helps us develop asynchronous JavaScript code and keeps us safe from problems and errors.</p>
+</li>
+</ul>
+<h2 id="how-to-create-a-callback"># How to create a Callback?</h2>
+<p>Let’s assume there’s a function <strong>foo()</strong> which accepts a <strong>callback</strong> and calls it wherever it wants in it’s body.</p>
+<pre class=" language-js"><code class="prism  language-js">    
+    <span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span>bar<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"foo is executing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token function">bar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"foo called bar which is a callback"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    
+</code></pre>
+<p>Now, How to call foo() ??</p>
+<p>For this we can directly write a function at the arguments’ place or first we can create a function separately and then pass it as callback.</p>
+<pre class=" language-js"><code class="prism  language-js"> 
+ <span class="token comment">/**
+ Invoke foo by passing a function as an argument.
+ */</span>
+   <span class="token function">foo</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'bar is called'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+</code></pre>
+<p>Notice that we have passed the entire function definition as an argument to <code>foo</code>. The passed function doesn’t have a name. It is called an <code>anonymous function</code>.</p>
+<p>We can also pass Arrow Functions as callbacks.<br>
+Arrow functions are nothing but a different way of writing functions in JavaScript</p>
+<pre class=" language-js"><code class="prism  language-js">
+ <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"callback function is called"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+</code></pre>
+<h2 id="built-in-methods-of-javascript"># Built-In Methods of JavaScript:</h2>
+<p>JavaScript provides built-in methods which accepts callbacks.<br>
+e,g. <strong><code>setTimeout()</code></strong> , <strong><code>setInterval()</code></strong>…</p>
+<p>Let’s see,</p>
+<pre class=" language-javascript"><code class="prism  language-javascript">    
+     <span class="token keyword">const</span> <span class="token function-variable function">message</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+     console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"This message is shown after 3 seconds"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+ 
+     <span class="token function">setTimeout</span><span class="token punctuation">(</span>message<span class="token punctuation">,</span> <span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+     <span class="token comment">//after 3 seconds it will log the statement provided</span>
+     
+</code></pre>
+<p>So, How this is working we will dive into it later.</p>
+<h1 id="promises-in-js"># Promises in JS</h1>
+<p>The constructor syntax for a promise object is:</p>
+<pre class=" language-js"><code class="prism  language-js"> <span class="token keyword">let</span> promise <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// executor (the producing code)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>The function passed to  <code>new Promise</code>  is called the  <strong><em>executor</em></strong>. When  <code>new Promise</code>  is created, the executor runs automatically.</p>
+<p>Its arguments  <code>resolve</code>  and  <code>reject</code>  are callbacks provided by JavaScript itself. Our code is only inside the executor.</p>
+<p>When the executor obtains the result, be it soon or late, doesn’t matter, it should call one of these callbacks:</p>
+<ul>
+<li><code>resolve(value)</code>  — if the job is finished successfully, with result  <code>value</code>.</li>
+<li><code>reject(error)</code>  — if an error has occurred,  <code>error</code>  is the error object.</li>
+</ul>
+<hr>
+<p>So to summarize: the executor runs automatically and attempts to perform a job. When it is finished with the attempt, it calls  <code>resolve</code>  if it was successful or  <code>reject</code>  if there was an error.</p>
+<p>The  <code>promise</code>  object returned by the  <code>new Promise</code>  constructor has these internal properties:</p>
+<ul>
+<li>
+<p><code>state</code>  — initially  <code>"pending"</code>, then changes to either  <code>"fulfilled"</code>  when  <code>resolve</code>  is called or  <code>"rejected"</code>  when  <code>reject</code>  is called.</p>
+</li>
+<li>
+<p><code>result</code>  — initially  <code>undefined</code>, then changes to  <code>value</code>  when  <code>resolve(value)</code>  is called or  <code>error</code>  when  <code>reject(error)</code>  is called.</p>
+<p><img src="https://i.pinimg.com/564x/1e/af/f2/1eaff2dcf56a40be1f21ae0e26900bc5.jpg" alt=""></p>
+</li>
+</ul>
+<p>Here’s an example of a promise constructor and a simple executor function with “producing code” that takes time (via  <code>setTimeout</code>):</p>
+<pre class=" language-javascript"><code class="prism  language-javascript">`      <span class="token keyword">let</span> promise <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// the function is executed automatically </span>
+       <span class="token comment">//when the promise is constructed</span>
+
+        <span class="token comment">// after 1 second signal that the </span>
+        <span class="token comment">// job is done with the result "done"</span>
+         <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">_resolve__</span><span class="token punctuation">(</span><span class="token string">"done"</span><span class="token punctuation">)</span>_<span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>We can see two things by running the code above:</p>
+<ol>
+<li>
+<p>The executor is called automatically and immediately (by  <code>new Promise</code>).</p>
+</li>
+<li>
+<p>The executor receives two arguments:  <code>resolve</code>  and  <code>reject</code>. These functions are pre-defined by the JavaScript engine, so we don’t need to create them. We should only call one of them when ready.</p>
+<p>After one second of “processing”, the executor calls  <code>resolve("done")</code>  to produce the result. This changes the state of the  <code>promise</code>  object</p>
+</li>
+</ol>
+<p>That was an example of a successful job completion, a “fulfilled promise”.</p>
+<p>And now an example of the executor rejecting the promise with an error:</p>
+<pre class=" language-js"><code class="prism  language-js">`<span class="token keyword">let</span> promise <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// after 1 second signal that the job is finished with an error</span>
+  <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">_reject__</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">"Whoops!"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>_<span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<hr>
+<p><strong>To summarize, the executor should perform a job (usually something that takes time) and then call  <code>resolve</code>  or  <code>reject</code>  to change the state of the corresponding promise object.<br>
+A promise that is either resolved or rejected is called “settled”, as opposed to an initially “pending” promise.</strong></p>
+<h2 id="consumers-then-catch"># Consumers: then, catch</h2>
+<p>A Promise object serves as a link between the executor (the “producing code”) and the consuming functions, which will receive the result or error. Consuming functions can be registered (subscribed) using the methods  <code>.then</code>  and  <code>.catch</code>.</p>
+<h3 id="then--">.then ( )</h3>
+<p>The most important, fundamental one is  <code>.then</code>.</p>
+<p>The syntax is:</p>
+<pre class=" language-js"><code class="prism  language-js">promise<span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>  
+<span class="token keyword">function</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span>  <span class="token punctuation">{</span>  _<span class="token comment">/* handle a successful result */</span>_  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token keyword">function</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span>  <span class="token punctuation">{</span>  _<span class="token comment">/* handle an error */</span>_  <span class="token punctuation">}</span>  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="catch--">.catch ( )</h3>
+<p>The other method use to capture the errors of the promise object we use <code>.catch()</code></p>
+<pre class=" language-js"><code class="prism  language-js"><span class="token keyword">let</span> promise <span class="token operator">=</span>  <span class="token keyword">new</span>  <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span>  <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+ 							<span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token operator">=&gt;</span>   
+                            <span class="token function">reject</span><span class="token punctuation">(</span><span class="token keyword">new</span>  <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">"Whoops!"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// shows "Error: Whoops!" after 1 second_</span>
+</code></pre>
+<h2 id="in-summary"># In Summary</h2>
+<p>To Summarize:</p>
+<ul>
+<li>A JavaScript function can accept another function as an argument.</li>
+<li>Passing the function as an argument is a powerful programming concept that can be used to notify a caller that something happened. It is also known as the callback function.</li>
+<li>You can use callback functions to notify the caller depending on a use case. Callbacks are also used to carry out certain tasks depending on the state (pass, fail) of other tasks.</li>
+<li>But be careful – nesting too many callback functions may not be a great idea and may create  <code>Callback Hell</code>. We will dive into it sometime later…</li>
+</ul>
+<h2 id="section"></h2>
+<ul>
+<li><code>Promise</code>  is an important building block for the asynchronous concept in JavaScript.</li>
+<li>A  <code>promise</code>  object has two internal properties, state and result. These properties are not code-accessible.</li>
+<li>The consumer of a promise can use the  <code>.then()</code>,  <code>.catch()</code>, and  <code>.finally()</code>  methods to handle promises.</li>
+</ul>
+<h2 id="before-we-end...">Before We End…</h2>
+<p>That’s all for now. I hope you’ve found this helpful</p>
+<p>Regards:<br>
+Md Mafizuddin</p>
+<p>For any queries connect with me:<br>
+LinkedIn: <a href="https://www.linkedin.com/in/mafizonly/">@mafizonly</a><br>
+Github: <a href="https://github.com/pacehutt">@pacehut</a><br>
+Instagram: <a href="https://www.instagram.com/mafiz._/">@mafiz._</a></p>
+</div>
+</body>
+
+</html>
